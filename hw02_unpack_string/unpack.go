@@ -13,27 +13,26 @@ func Unpack(str string) (string, error) {
 	nStr := []rune(str)
 	var resultStr strings.Builder
 	var count int
-
-	for i := 0; i < len(nStr); i++ {
+	if len(nStr) != 0 {
 		if unicode.IsDigit(nStr[0]) {
 			return "", ErrInvalidString
 		}
-
+	}
+	for i, _ := range nStr {
 		if i < len(nStr)-1 && unicode.IsDigit(nStr[i]) && unicode.IsDigit(nStr[i+1]) {
 			return "", ErrInvalidString
 		}
 
 		if i < len(nStr)-1 && unicode.IsDigit(nStr[i+1]) {
-			num, _ := strconv.Atoi(string(nStr[i+1]))
-			count = num
-			if string(nStr[i]) != "\n" {
+			if num, err := strconv.Atoi(string(nStr[i+1])); err == nil {
+				count = num
+			}
+			if count > 0 {
 				mulStr := strings.Repeat(string(nStr[i]), count)
 				resultStr.WriteString(mulStr)
-			} else {
-				mulStr := strings.Repeat("\\n", count)
-				resultStr.WriteString(mulStr)
 			}
-		} else if !unicode.IsDigit(nStr[i]) && string(nStr[i]) != "\n" {
+
+		} else if !unicode.IsDigit(nStr[i]) {
 			resultStr.WriteString(string(nStr[i]))
 		}
 	}
