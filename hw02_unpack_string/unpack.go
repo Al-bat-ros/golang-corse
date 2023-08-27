@@ -18,7 +18,7 @@ func Unpack(str string) (string, error) {
 			return "", ErrInvalidString
 		}
 	}
-	for i, _ := range nStr {
+	for i := range nStr {
 		if i < len(nStr)-1 && unicode.IsDigit(nStr[i]) && unicode.IsDigit(nStr[i+1]) {
 			return "", ErrInvalidString
 		}
@@ -31,7 +31,6 @@ func Unpack(str string) (string, error) {
 				mulStr := strings.Repeat(string(nStr[i]), count)
 				resultStr.WriteString(mulStr)
 			}
-
 		} else if !unicode.IsDigit(nStr[i]) {
 			resultStr.WriteString(string(nStr[i]))
 		}
