@@ -88,7 +88,6 @@ func TestTop10(t *testing.T) {
 }
 
 func TestCountPapularWorld(t *testing.T) {
-
 	wordsArray := text2
 
 	expected := map[string]int{

@@ -16,7 +16,6 @@ func countPapularWord(text string) map[string]int {
 }
 
 func Top10(text string) []string {
-
 	countPapularWord(text)
 
 	type kayValue struct {
