@@ -5,23 +5,28 @@ import (
 	"strings"
 )
 
-func Top10(text string) []string {
+func countPapularWord(text string) map[string]int {
 	wordsArray := strings.Fields(text)
-
-	wordsCount := make(map[string]int, len(wordsArray))
+	wordsCount := make(map[string]int)
 
 	for _, w := range wordsArray {
 		wordsCount[w]++
 	}
+	return wordsCount
+}
+
+func Top10(text string) []string {
+
+	countPapularWord(text)
 
 	type kayValue struct {
 		word  string
 		count int
 	}
 
-	papularWord := make([]kayValue, 0, len(wordsArray))
+	papularWord := make([]kayValue, 0, 10)
 
-	for kay, value := range wordsCount {
+	for kay, value := range countPapularWord(text) {
 		papularWord = append(papularWord, kayValue{kay, value})
 	}
 
@@ -32,12 +37,11 @@ func Top10(text string) []string {
 		return papularWord[i].count > papularWord[j].count
 	})
 
-	resultWord := make([]string, 0, len(papularWord))
+	resultWord := make([]string, 0, 10)
 
 	for _, e := range papularWord {
 		resultWord = append(resultWord, e.word)
 	}
-
 	if len(resultWord) > 0 {
 		return resultWord[:10]
 	}
