@@ -30,6 +30,7 @@ func NewCache(capacity int) Cache {
 func (c *lruCache) Set(key Key, value any) bool {
 	if elem, exists := c.items[key]; exists {
 		elem.Value.(*cacheItem).Value = value
+
 		c.queue.MoveToFront(elem)
 
 		return true
@@ -45,7 +46,6 @@ func (c *lruCache) Set(key Key, value any) bool {
 	}
 
 	newItem := &cacheItem{key, value}
-
 	elem := c.queue.PushFront(newItem)
 	c.items[key] = elem
 
@@ -63,5 +63,6 @@ func (c *lruCache) Get(key Key) (any, bool) {
 }
 
 func (c *lruCache) Clear() {
+	c.queue = NewList()
 	c.items = make(map[Key]*ListItem)
 }

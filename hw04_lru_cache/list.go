@@ -36,6 +36,7 @@ func (l *list) Back() *ListItem {
 
 func (l *list) PushFront(v any) *ListItem {
 	item := &ListItem{Value: v, Next: l.front}
+
 	if l.front != nil {
 		l.front.Prev = item
 	} else {
@@ -48,6 +49,7 @@ func (l *list) PushFront(v any) *ListItem {
 
 func (l *list) PushBack(v any) *ListItem {
 	item := &ListItem{Value: v, Prev: l.back}
+
 	if l.back != nil {
 		l.back.Next = item
 	} else {
