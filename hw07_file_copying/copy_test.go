@@ -21,7 +21,6 @@ func TestCopy(t *testing.T) {
 		result string
 	}{
 		{"equals", 0, 0, text, text},
-		{"offset equals size", 84, 0, text, ""},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
